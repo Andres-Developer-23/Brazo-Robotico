@@ -1,5 +1,4 @@
 # Webots
-*.wbproj
 *.cache
 *.opensdf
 *.sdf
@@ -8,7 +7,6 @@
 *.so
 *.dylib
 *.o
-*.obj
 *.pyc
 __pycache__/
 *.swp
