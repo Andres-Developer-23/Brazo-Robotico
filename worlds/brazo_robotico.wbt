@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.14423910427788464 0.09445585253851016 0.9850244528529922 1.9958382179591723
-  position 2.4354345488612106 -6.260992729966835 1.428473818306371
+  orientation -0.365967242572231 -0.5609425545595722 0.7425708234560925 4.841474424184207
+  position -0.5979406693535525 18.864096089416392 26.74907873176446
 }
 TexturedBackground {
 }
@@ -17,6 +17,42 @@ TexturedBackgroundLight {
 RectangleArena {
   translation 0.21 0 0
   floorSize 7 8
+}
+DEF brazo-1 Solid {
+  translation 0.489999 0.0800006 -0.2
+  rotation -0.577349935856137 0.577349935856137 0.5773509358560258 -2.094395307179586
+  children [
+    CadShape {
+      url [
+        "../../../c9358a2d/brazo-1.obj"
+      ]
+    }
+  ]
+  name "solid(1)"
+}
+DEF brazo-2 Solid {
+  translation 0.489999 0.0799996 3.93
+  rotation -0.577349935856137 0.577349935856137 0.5773509358560258 -2.094395307179586
+  children [
+    CadShape {
+      url [
+        "../../../c9358a2d/brazo-1.obj"
+      ]
+    }
+  ]
+  name "solid(2)"
+}
+DEF brazo-3 Solid {
+  translation 0.489999 0.0799967 8.12
+  rotation -0.577349935856137 0.577349935856137 0.5773509358560258 -2.094395307179586
+  children [
+    CadShape {
+      url [
+        "../../../c9358a2d/brazo-1.obj"
+      ]
+    }
+  ]
+  name "solid(3)"
 }
 DEF base Solid {
   translation -0.11 7.10546e-08 -0.160526
