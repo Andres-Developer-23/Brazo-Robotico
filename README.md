@@ -1,6 +1,6 @@
 # Brazo Robótico
 
-Simulación de un brazo robótico en [Webots R2025a](https://cyberbotics.com/). El modelo 3D de la base fue creado en Blender 4.0.2 y se encuentra en una etapa inicial.
+Simulación de un brazo robótico en [Webots R2025a](https://cyberbotics.com/). Los modelos 3D fueron creados en Blender 4.0.2 y el proyecto se encuentra en etapa inicial.
 
 ![Captura de la simulación](worlds/.brazo_robotico.jpg)
 
@@ -16,7 +16,9 @@ Simulación de un brazo robótico en [Webots R2025a](https://cyberbotics.com/). 
 brazo_robotico/
 ├── brazo-robotico/          # Modelos 3D del brazo
 │   ├── base.obj             # Malla 3D de la base
-│   └── base.mtl             # Materiales de la base
+│   ├── base.mtl             # Materiales de la base
+│   ├── brazo-1.obj          # Malla 3D del segmento superior
+│   └── brazo-1.mtl          # Materiales del segmento superior
 ├── worlds/                  # Escenarios de Webots
 │   ├── brazo_robotico.wbt   # Mundo principal de la simulación
 │   ├── .brazo_robotico.wbproj
@@ -32,11 +34,11 @@ brazo_robotico/
 
 1. Abre Webots.
 2. Ve a `File > Open World...` y selecciona `worlds/brazo_robotico.wbt`.
-3. **Corrige la ruta del modelo 3D** (solo la primera vez):
-   - En el árbol de escena, expande `base` → `children` → `CadShape`.
-   - En el campo `url`, cambia las rutas UUID (ej. `../../../1508fe4c/base.obj`) por `../../brazo-robotico/base.obj`.
-   - También puedes hacer clic derecho en `CadShape`, seleccionar "Pick CAD file..." y elegir `brazo-robotico/base.obj`.
-4. La simulación mostrará la base del brazo sobre el escenario rectangular.
+3. **Corrige las rutas de los modelos 3D** (solo la primera vez):
+   - En el árbol de escena, expande cada `Solid` → `children` → `CadShape`.
+   - En el campo `url`, cambia las rutas UUID (ej. `../../../1508fe4c/`) por `../../brazo-robotico/` (ej. `../../brazo-robotico/base.obj`).
+   - También puedes hacer clic derecho en cada `CadShape`, seleccionar "Pick CAD file..." y elegir el archivo correspondiente en `brazo-robotico/`.
+4. La simulación mostrará la base y tres instancias del segmento superior del brazo.
 
 ## Estado del proyecto
 
@@ -44,15 +46,15 @@ Proyecto en etapa inicial. Actualmente incluye:
 
 - [x] Base del brazo modelada en 3D
 - [x] Escenario Webots con fondo texturizado y piso
-- [ ] Segmentos del brazo (húmero, antebrazo, etc.)
+- [x] Segmento superior del brazo modelado en 3D (3 instancias en escena)
 - [ ] Articulaciones y motores
 - [ ] Controlador (Python)
 - [ ] Pinza o efector final
 
 ## Próximos pasos
 
-- Modelar los segmentos restantes del brazo en Blender
-- Definir articulaciones rotacionales con `HingeJoint` en Webots
+- Unir los segmentos con articulaciones rotacionales (`HingeJoint`)
+- Modelar segmentos adicionales (antebrazo, muñeca)
 - Escribir un controlador en Python para el movimiento
 - Agregar un gripper o efector final
 
