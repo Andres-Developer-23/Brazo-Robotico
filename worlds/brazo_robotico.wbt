@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.061210627032121136 -0.005948399257293949 0.9981071463949199 2.9482071102135214
-  position 23.63197336501557 -2.5160659240930974 3.415674725285101
+  orientation -0.058560569668644216 -0.07276257792220849 0.9956285788054692 4.92356094900595
+  position 1.1860306214203136 27.655237178032813 9.646078619853283
 }
 TexturedBackground {
 }
@@ -19,7 +19,7 @@ RectangleArena {
   floorSize 7 8
 }
 DEF ROBOT1 Robot {
-  translation 0.7 1.3 -0.07
+  translation 0.7 1.3 1.96
   children [
     DEF BASE Solid {
       rotation 1 0 0 1.5708
@@ -74,11 +74,12 @@ DEF ROBOT1 Robot {
               }
             ]
             endPoint Solid {
-              rotation 0 1 0 0.523599
+              translation -8.881784197001252e-16 -1.7763568394002505e-15 0
+              rotation 0 1 -2.1447852867465834e-16 0.5235989999999997
               children [
                 HingeJoint {
                   jointParameters HingeJointParameters {
-                    position -0.43199999999999994
+                    position -0.07680000000000003
                     axis 0 1 0
                     anchor 0 0 1
                   }
@@ -93,8 +94,8 @@ DEF ROBOT1 Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation 0.41868789897527975 0 0.09186980930503841
-                    rotation 0.9550733911475494 -0.20956442313357965 0.20956519290810183 1.6167509088783167
+                    translation 0.07672452478998408 0 0.0029476707335001073
+                    rotation 0.9985272545273861 -0.03836216335515706 0.03836230426750999 1.5722738304906196
                     children [
                       CadShape {
                         url [
