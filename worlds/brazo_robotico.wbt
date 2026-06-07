@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.0962349551213784 0.07410131450950413 -0.9925965084568601 1.8363780084566075
-  position 0.3897832918405667 21.364176203961282 7.06794382619666
+  orientation 0.061210627032121136 -0.005948399257293949 0.9981071463949199 2.9482071102135214
+  position 23.63197336501557 -2.5160659240930974 3.415674725285101
 }
 TexturedBackground {
 }
@@ -73,6 +73,58 @@ DEF ROBOT1 Robot {
                 name "sensor_brazo2_1"
               }
             ]
+            endPoint Solid {
+              rotation 0 1 0 0.523599
+              children [
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position -0.43199999999999994
+                    axis 0 1 0
+                    anchor 0 0 1
+                  }
+                  device [
+                    RotationalMotor {
+                      name "motor_brazo_3"
+                      minPosition -1.5708
+                      maxPosition 1.5708
+                    }
+                    PositionSensor {
+                      name "sensor_brazo_3"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation 0.41868789897527975 0 0.09186980930503841
+                    rotation 0.9550733911475494 -0.20956442313357965 0.20956519290810183 1.6167509088783167
+                    children [
+                      CadShape {
+                        url [
+                          "/home/andres/programacion/brazo_robotico/worlds/brazo-1.obj"
+                        ]
+                      }
+                      HingeJoint {
+                        jointParameters HingeJointParameters {
+                          position -1.4880000000000053
+                          axis 0 0 1
+                          anchor 5.38 7.09 0.32
+                        }
+                        device [
+                          RotationalMotor {
+                            name "motor_brazo2_3"
+                            minPosition -1.6
+                            maxPosition 1.6
+                          }
+                          PositionSensor {
+                            name "sensor_brazo2_3"
+                          }
+                        ]
+                      }
+                    ]
+                    name "brazo2"
+                  }
+                }
+              ]
+              name "brazo_extension"
+            }
           }
         ]
         name "brazo"
@@ -80,59 +132,5 @@ DEF ROBOT1 Robot {
     }
   ]
   name "robot_brazo_1"
-  controller "robot_brazo"
-}
-DEF ROBOT2 Robot {
-  translation -1.01 1.26 3.68
-  rotation 0 1 0 0.523599
-  children [
-    HingeJoint {
-      jointParameters HingeJointParameters {
-        position -0.43199999999999994
-        axis 0 1 0
-        anchor 0 0 1
-      }
-      device [
-        RotationalMotor {
-          name "motor_brazo_2"
-          minPosition -1.5708
-          maxPosition 1.5708
-        }
-        PositionSensor {
-          name "sensor_brazo_2"
-        }
-      ]
-      endPoint Solid {
-        translation 0.41868789897527964 0 0.09186980930503852
-        rotation 0.9550733911475494 -0.20956442313357965 0.20956519290810183 1.6167509088783167
-        children [
-          CadShape {
-            url [
-              "/home/andres/programacion/brazo_robotico/worlds/brazo-1.obj"
-            ]
-          }
-          HingeJoint {
-            jointParameters HingeJointParameters {
-              position -1.4880000000000053
-              axis 0 0 1
-              anchor 5.38 7.09 0.32
-            }
-            device [
-              RotationalMotor {
-                name "motor_brazo2_2"
-                minPosition -1.6
-                maxPosition 1.6
-              }
-              PositionSensor {
-                name "sensor_brazo2_2"
-              }
-            ]
-          }
-        ]
-        name "brazo2"
-      }
-    }
-  ]
-  name "robot_brazo_2"
   controller "robot_brazo"
 }

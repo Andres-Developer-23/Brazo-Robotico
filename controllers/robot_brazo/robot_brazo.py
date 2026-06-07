@@ -3,50 +3,52 @@ from controller import Robot, Keyboard
 robot = Robot()
 timestep = int(robot.getBasicTimeStep())
 
-name = robot.getName()
-if name == "robot_brazo_1":
-    motor1 = robot.getDevice("motor_brazo_1")
-    sensor1 = robot.getDevice("sensor_brazo_1")
-    motor2 = robot.getDevice("motor_brazo2_1")
-    sensor2 = robot.getDevice("sensor_brazo2_1")
-    key_m1_up = Keyboard.UP
-    key_m1_down = Keyboard.DOWN
-    key_m2_up = ord('A')
-    key_m2_down = ord('D')
-else:
-    motor1 = robot.getDevice("motor_brazo_2")
-    sensor1 = robot.getDevice("sensor_brazo_2")
-    motor2 = robot.getDevice("motor_brazo2_2")
-    sensor2 = robot.getDevice("sensor_brazo2_2")
-    key_m1_up = ord('W')
-    key_m1_down = ord('S')
-    key_m2_up = ord('E')
-    key_m2_down = ord('Q')
-
+motor1 = robot.getDevice("motor_brazo_1")
+sensor1 = robot.getDevice("sensor_brazo_1")
 sensor1.enable(timestep)
-sensor2.enable(timestep)
 motor1.setPosition(float('inf'))
 motor1.setVelocity(0.0)
+
+motor2 = robot.getDevice("motor_brazo2_1")
+sensor2 = robot.getDevice("sensor_brazo2_1")
+sensor2.enable(timestep)
 motor2.setPosition(float('inf'))
 motor2.setVelocity(0.0)
+
+motor3 = robot.getDevice("motor_brazo_3")
+sensor3 = robot.getDevice("sensor_brazo_3")
+sensor3.enable(timestep)
+motor3.setPosition(float('inf'))
+motor3.setVelocity(0.0)
+
+motor4 = robot.getDevice("motor_brazo2_3")
+sensor4 = robot.getDevice("sensor_brazo2_3")
+sensor4.enable(timestep)
+motor4.setPosition(float('inf'))
+motor4.setVelocity(0.0)
 
 keyboard = Keyboard()
 keyboard.enable(timestep)
 
 while robot.step(timestep) != -1:
     key = keyboard.getKey()
-    if key == key_m1_up:
+    motor1.setVelocity(0.0)
+    motor2.setVelocity(0.0)
+    motor3.setVelocity(0.0)
+    motor4.setVelocity(0.0)
+    if key == Keyboard.UP:
         motor1.setVelocity(0.3)
-        motor2.setVelocity(0.0)
-    elif key == key_m1_down:
+    elif key == Keyboard.DOWN:
         motor1.setVelocity(-0.3)
-        motor2.setVelocity(0.0)
-    elif key == key_m2_up:
+    elif key == ord('A'):
         motor2.setVelocity(0.3)
-        motor1.setVelocity(0.0)
-    elif key == key_m2_down:
+    elif key == ord('D'):
         motor2.setVelocity(-0.3)
-        motor1.setVelocity(0.0)
-    else:
-        motor1.setVelocity(0.0)
-        motor2.setVelocity(0.0)
+    elif key == ord('W'):
+        motor3.setVelocity(0.3)
+    elif key == ord('S'):
+        motor3.setVelocity(-0.3)
+    elif key == ord('E'):
+        motor4.setVelocity(0.3)
+    elif key == ord('Q'):
+        motor4.setVelocity(-0.3)
