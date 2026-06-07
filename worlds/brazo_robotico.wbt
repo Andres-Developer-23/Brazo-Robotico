@@ -73,59 +73,6 @@ DEF ROBOT1 Robot {
                 name "sensor_brazo2_1"
               }
             ]
-            endPoint Solid {
-              translation -8.881784197001252e-16 -1.7763568394002505e-15 0
-              rotation 0 1 -2.1447852867465834e-16 0.5235989999999997
-              children [
-                HingeJoint {
-                  jointParameters HingeJointParameters {
-                    position -0.07680000000000003
-                    axis 0 1 0
-                    anchor 0 0 1
-                  }
-                  device [
-                    RotationalMotor {
-                      name "motor_brazo_3"
-                      minPosition -1.5708
-                      maxPosition 1.5708
-                    }
-                    PositionSensor {
-                      name "sensor_brazo_3"
-                    }
-                  ]
-                  endPoint Solid {
-                    translation 0.07672452478998408 0 0.0029476707335001073
-                    rotation 0.9985272545273861 -0.03836216335515706 0.03836230426750999 1.5722738304906196
-                    children [
-                      CadShape {
-                        url [
-                          "/home/andres/programacion/brazo_robotico/worlds/brazo-1.obj"
-                        ]
-                      }
-                      HingeJoint {
-                        jointParameters HingeJointParameters {
-                          position -1.4880000000000053
-                          axis 0 0 1
-                          anchor 5.38 7.09 0.32
-                        }
-                        device [
-                          RotationalMotor {
-                            name "motor_brazo2_3"
-                            minPosition -1.6
-                            maxPosition 1.6
-                          }
-                          PositionSensor {
-                            name "sensor_brazo2_3"
-                          }
-                        ]
-                      }
-                    ]
-                    name "brazo2"
-                  }
-                }
-              ]
-              name "brazo_extension"
-            }
           }
         ]
         name "brazo"
