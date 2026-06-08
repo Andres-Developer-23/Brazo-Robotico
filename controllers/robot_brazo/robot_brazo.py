@@ -114,11 +114,11 @@ while robot.step(timestep) != -1:
             pos_caja = caja_roja.getPosition()
             dist = math.sqrt((pos_garra[0]-pos_caja[0])**2 + (pos_garra[1]-pos_caja[1])**2 + (pos_garra[2]-pos_caja[2])**2)
             
-            if dist < 5.0: # Tolerancia amplia para facilidad de uso
+            if dist < 1.2:  # Solo agarra si la garra está tocando la caja
                 grabbed = True
                 print("¡CAJA ATRAPADA! (distancia: {:.2f}m)".format(dist))
             else:
-                print("CAJA MUY LEJOS (distancia: {:.2f}m)".format(dist))
+                print("Acerca más la garra a la caja (distancia actual: {:.2f}m)".format(dist))
 
     elif key == ord('S'):
         motor_gi.setVelocity(-VEL_GARRA)
