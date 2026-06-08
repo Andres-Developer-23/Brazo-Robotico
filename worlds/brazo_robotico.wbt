@@ -160,7 +160,6 @@ DEF ROBOT1 Robot {
                               device [
                                 RotationalMotor {
                                   name "motor_garra_izq"
-                                  minPosition -0.8
                                 }
                                 PositionSensor {
                                   name "sensor_garra_izq"
@@ -189,7 +188,6 @@ DEF ROBOT1 Robot {
                               device [
                                 RotationalMotor {
                                   name "motor_garra_der"
-                                  minPosition -0.8
                                 }
                                 PositionSensor {
                                   name "sensor_garra_der"
