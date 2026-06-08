@@ -28,7 +28,7 @@ DEF ROBOT1 Robot {
           children [
             CadShape {
               url [
-                "/home/andres/programacion/brazo_robotico/brazo-robotico/base.obj"
+                "../brazo-robotico/base.obj"
               ]
             }
           ]
@@ -59,7 +59,7 @@ DEF ROBOT1 Robot {
             children [
               CadShape {
                 url [
-                  "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                  "../brazo-robotico/brazo-1.obj"
                 ]
               }
             ]
@@ -88,7 +88,7 @@ DEF ROBOT1 Robot {
                   children [
                     CadShape {
                       url [
-                        "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                        "../brazo-robotico/brazo-1.obj"
                       ]
                     }
                   ]
@@ -117,7 +117,7 @@ DEF ROBOT1 Robot {
                         children [
                           CadShape {
                             url [
-                              "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                              "../brazo-robotico/brazo-1.obj"
                             ]
                           }
                         ]
@@ -146,7 +146,7 @@ DEF ROBOT1 Robot {
                               children [
                                 CadShape {
                                   url [
-                                    "/home/andres/programacion/brazo_robotico/brazo-robotico/garra.obj"
+                                    "../brazo-robotico/garra.obj"
                                   ]
                                 }
                               ]
