@@ -1,3 +1,5 @@
 *.tar.gz
 *.jpg
 .xdp-*
+__pycache__/
+*.pyc

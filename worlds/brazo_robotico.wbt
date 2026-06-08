@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.01370011103984997 -0.019900161291460904 0.9997081026670084 1.208
-  position -4.78 -36.7 5.48
+  orientation 0.214789406505009 0.3682583171357625 -0.9045724529928835 1.1455246673745378
+  position -8.635512872013816 20.89242622285093 20.946389949143956
 }
 TexturedBackground {
 }
@@ -19,7 +19,6 @@ RectangleArena {
   floorSize 26 26
 }
 DEF ROBOT1 Robot {
-  supervisor TRUE
   children [
     DEF BASE Solid {
       children [
@@ -38,7 +37,7 @@ DEF ROBOT1 Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position -2.5779199999999913
+        position -2.0607999999999946
         axis 0 0 1
         anchor 0.024 -0.303 1.342
       }
@@ -51,8 +50,8 @@ DEF ROBOT1 Robot {
         }
       ]
       endPoint DEF BRAZO1 Solid {
-        translation 0.2061783326819202 -0.5463023943598493 0.7080000000000001
-        rotation 0 0 -0.9999999999999999 2.5779199999999913
+        translation 0.30264143145910444 -0.42442467901716374 0.7080000000000007
+        rotation 0 0 -1 2.0607999999999946
         children [
           Pose {
             rotation 1 0 0 1.57079632679
@@ -66,22 +65,23 @@ DEF ROBOT1 Robot {
           }
           HingeJoint {
             jointParameters HingeJointParameters {
-              position 1.0950400000000031
+              position 1.0176000000000027
+              axis 0 -1 0
               anchor 0.025 -0.284 5.498
             }
             device [
               RotationalMotor {
                 name "motor_brazo_1"
-                minPosition -1.5708
-                maxPosition 1.5708
+                minPosition -0.5532
+                maxPosition 2.5884
               }
               PositionSensor {
                 name "sensor_brazo_1"
               }
             ]
             endPoint DEF BRAZO2 Solid {
-              translation 6.938893903907228e-18 0.40966722444059517 5.46008190752581
-              rotation 1 0 0 1.0950400000000031
+              translation -0.149521 -0.580897 4.11777
+              rotation -0.11772605004518573 -0.017109597230373374 -0.9928987052178951 3.08733965035168
               children [
                 Pose {
                   rotation 1 0 0 1.57079632679
@@ -94,13 +94,13 @@ DEF ROBOT1 Robot {
                   ]
                 }
                 HingeJoint {
-                  jointParameters HingeJointParameters {
-                    position 1.3056000000000043
-                    anchor 0.025 -0.284 5.498
-                  }
-                  device [
-                    RotationalMotor {
-                      name "motor_brazo_2"
+                    jointParameters HingeJointParameters {
+                      axis 0 -1 0
+                      anchor 0.025 -0.284 5.498
+                    }
+                    device [
+                      RotationalMotor {
+                        name "motor_brazo_2"
                       minPosition -1.5708
                       maxPosition 1.5708
                     }
@@ -109,8 +109,8 @@ DEF ROBOT1 Robot {
                     }
                   ]
                   endPoint DEF BRAZO3 Solid {
-                    translation 3.469446951953614e-18 0.40227207480881083 5.605901062726974
-                    rotation 1 0 0 1.3056000000000043
+                    translation -0.07 0.0425758 4.05526
+                    rotation 0 1 0 0
                     children [
                       Pose {
                         rotation 1 0 0 1.57079632679
@@ -124,7 +124,7 @@ DEF ROBOT1 Robot {
                       }
                       HingeJoint {
                         jointParameters HingeJointParameters {
-                          position 0.2304
+                          axis 0 -1 0
                           anchor 0.025 -0.284 5.498
                         }
                         device [
@@ -138,8 +138,8 @@ DEF ROBOT1 Robot {
                           }
                         ]
                         endPoint DEF GARRA Solid {
-                          translation 6.938893903907228e-18 0.1372799959633217 4.9456095900532455
-                          rotation 1 0 0 0.23040000000000038
+                          translation 0.005058 -0.0970561 4.12409
+                          rotation 0 1 0 0
                           children [
                             Pose {
                               rotation 1 0 0 1.57079632679
@@ -152,15 +152,17 @@ DEF ROBOT1 Robot {
                               ]
                             }
                             DEF PUNTO_AGARRE Connector {
-                              translation 0 -0.264 3.0
+                              translation 0 -0.264 3
                               name "conector_garra"
-                              type "symmetric"
-                              distanceTolerance 50.0
+                              boundingObject Sphere {
+                                radius 0.001
+                              }
+                              distanceTolerance 50
                               axisTolerance 3.14159
-                              boundingObject Sphere { radius 0.001 }
                             }
                             HingeJoint {
                               jointParameters HingeJointParameters {
+                                position -0.3680000000000001
                                 axis 0 1 0
                                 anchor -0.442 -0.264 3.249
                               }
@@ -174,6 +176,7 @@ DEF ROBOT1 Robot {
                               ]
                               endPoint Solid {
                                 translation -0.442 -0.264 3.249
+                                rotation 0 -1 0 0.3680000000000001
                                 name "dedo_izq"
                                 boundingObject Pose {
                                   translation 0 0 1.3
@@ -189,6 +192,7 @@ DEF ROBOT1 Robot {
                             }
                             HingeJoint {
                               jointParameters HingeJointParameters {
+                                position -0.3680000000000001
                                 axis 0 -1 0
                                 anchor 0.467 -0.264 3.249
                               }
@@ -202,6 +206,7 @@ DEF ROBOT1 Robot {
                               ]
                               endPoint Solid {
                                 translation 0.467 -0.264 3.249
+                                rotation 0 1 0 0.3680000000000001
                                 name "dedo_der"
                                 boundingObject Pose {
                                   translation 0 0 1.3
@@ -222,7 +227,7 @@ DEF ROBOT1 Robot {
                             children [
                               Shape {
                                 geometry Box {
-                                  size 1.1 0.4 3.0
+                                  size 1.1 0.4 3
                                 }
                               }
                             ]
@@ -236,7 +241,7 @@ DEF ROBOT1 Robot {
                       children [
                         Shape {
                           geometry Cylinder {
-                            height 5.0
+                            height 5
                             radius 0.25
                           }
                         }
@@ -251,7 +256,7 @@ DEF ROBOT1 Robot {
                 children [
                   Shape {
                     geometry Cylinder {
-                      height 5.0
+                      height 5
                       radius 0.25
                     }
                   }
@@ -266,7 +271,7 @@ DEF ROBOT1 Robot {
           children [
             Shape {
               geometry Cylinder {
-                height 5.0
+                height 5
                 radius 0.25
               }
             }
@@ -277,18 +282,19 @@ DEF ROBOT1 Robot {
   ]
   name "robot_brazo_1"
   controller "robot_brazo"
+  supervisor TRUE
 }
-
 DEF CAJA_ROJA Robot {
-  controller "<none>"
-  translation 0 5 1
+  translation 7.752190905521375e-16 5 0.29999960760056055
+  rotation 0.025338894126261644 -0.8615224002919868 0.5070868705060224 7.30249591197799e-17
   children [
     Connector {
       name "conector_caja"
-      type "symmetric"
-      distanceTolerance 50.0
+      boundingObject Sphere {
+        radius 0.001
+      }
+      distanceTolerance 50
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -309,18 +315,21 @@ DEF CAJA_ROJA Robot {
     density -1
     mass 0.001
   }
-}
-
-DEF CILINDRO_AZUL Robot {
   controller "<none>"
-  translation 3 4 1
+  linearVelocity -4.8775180533263716e-17 -9.507403294322056e-17 -4.379219209482699e-12
+  angularVelocity 2.891205793294678e-16 -1.1564823173178715e-16 -3.7289839659410946e-18
+}
+DEF CILINDRO_AZUL Robot {
+  translation 3 4 0.3999996076005606
+  rotation 0.006445876253402873 0.011489899244392664 0.9999132126813205 6.434235471866164e-16
   children [
     Connector {
       name "conector_cilindro"
-      type "symmetric"
-      distanceTolerance 50.0
+      boundingObject Sphere {
+        radius 0.001
+      }
+      distanceTolerance 50
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -343,18 +352,20 @@ DEF CILINDRO_AZUL Robot {
     density -1
     mass 0.001
   }
-}
-
-DEF ESFERA_VERDE Robot {
   controller "<none>"
-  translation -3 4 1
+  linearVelocity -5.99407878624597e-17 1.0746810025370762e-16 -4.3791636983314675e-12
+  angularVelocity -2.472157815352449e-16 -1.0626149070764201e-16 3.561830968301087e-17
+}
+DEF ESFERA_VERDE Robot {
+  translation -3 4 0.39999843040224226
   children [
     Connector {
       name "conector_esfera"
-      type "symmetric"
-      distanceTolerance 50.0
+      boundingObject Sphere {
+        radius 0.001
+      }
+      distanceTolerance 50
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -375,18 +386,20 @@ DEF ESFERA_VERDE Robot {
     density -1
     mass 0.001
   }
-}
-
-DEF CUBO_AMARILLO Robot {
   controller "<none>"
-  translation 0 7 1
+  linearVelocity 0 0 -1.751754297174557e-11
+}
+DEF CUBO_AMARILLO Robot {
+  translation 3.12240511361526e-17 7 0.34999960760056054
+  rotation -0.5263027510170556 -0.842084401627292 0.1178951856857815 5.1660636856640113e-17
   children [
     Connector {
       name "conector_cubo_am"
-      type "symmetric"
-      distanceTolerance 50.0
+      boundingObject Sphere {
+        radius 0.001
+      }
+      distanceTolerance 50
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -407,18 +420,21 @@ DEF CUBO_AMARILLO Robot {
     density -1
     mass 0.001
   }
-}
-
-DEF CUBO_NARANJA Robot {
   controller "<none>"
-  translation -4 7 1
+  linearVelocity -3.4596912650731966e-17 -3.152754857822533e-17 -4.379219209482699e-12
+  angularVelocity 4.248302390147283e-17 -8.496604780294566e-17 -2.0414909706837402e-17
+}
+DEF CUBO_NARANJA Robot {
+  translation -4 7 0.24999960760056059
+  rotation 0.19619975287739344 -0.4656474134955129 -0.8629473583456808 4.5777731079366185e-17
   children [
     Connector {
       name "conector_cubo_na"
-      type "symmetric"
-      distanceTolerance 50.0
+      boundingObject Sphere {
+        radius 0.001
+      }
+      distanceTolerance 50
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -439,11 +455,10 @@ DEF CUBO_NARANJA Robot {
     density -1
     mass 0.001
   }
+  controller "<none>"
+  linearVelocity 4.739829903059906e-17 -5.947373344163632e-17 -4.379441254087624e-12
+  angularVelocity 9.355812005268174e-17 2.498001805406602e-16 9.778070113597256e-18
 }
-
-# ══ TANQUE / CONTENEDOR ══════════════════════════════════════════════════════
-
-# Piso del tanque
 Solid {
   translation 8 0 0.15
   children [
@@ -453,15 +468,17 @@ Solid {
         roughness 0.8
         metalness 0.6
       }
-      geometry Box { size 4 4 0.3 }
+      geometry Box {
+        size 4 4 0.3
+      }
     }
   ]
   name "tanque_piso"
+  boundingObject Box {
+    size 4 4 0.3
+  }
   locked TRUE
-  boundingObject Box { size 4 4 0.3 }
 }
-
-# Pared frontal (Y positiva)
 Solid {
   translation 8 2.1 1.3
   children [
@@ -471,15 +488,17 @@ Solid {
         roughness 0.8
         metalness 0.6
       }
-      geometry Box { size 4 0.2 2.6 }
+      geometry Box {
+        size 4 0.2 2.6
+      }
     }
   ]
   name "tanque_pared_front"
+  boundingObject Box {
+    size 4 0.2 2.6
+  }
   locked TRUE
-  boundingObject Box { size 4 0.2 2.6 }
 }
-
-# Pared trasera (Y negativa)
 Solid {
   translation 8 -2.1 1.3
   children [
@@ -489,15 +508,17 @@ Solid {
         roughness 0.8
         metalness 0.6
       }
-      geometry Box { size 4 0.2 2.6 }
+      geometry Box {
+        size 4 0.2 2.6
+      }
     }
   ]
   name "tanque_pared_back"
+  boundingObject Box {
+    size 4 0.2 2.6
+  }
   locked TRUE
-  boundingObject Box { size 4 0.2 2.6 }
 }
-
-# Pared izquierda (X negativa)
 Solid {
   translation 6.1 0 1.3
   children [
@@ -507,15 +528,17 @@ Solid {
         roughness 0.8
         metalness 0.6
       }
-      geometry Box { size 0.2 4.4 2.6 }
+      geometry Box {
+        size 0.2 4.4 2.6
+      }
     }
   ]
   name "tanque_pared_izq"
+  boundingObject Box {
+    size 0.2 4.4 2.6
+  }
   locked TRUE
-  boundingObject Box { size 0.2 4.4 2.6 }
 }
-
-# Pared derecha (X positiva)
 Solid {
   translation 9.9 0 1.3
   children [
@@ -525,11 +548,14 @@ Solid {
         roughness 0.8
         metalness 0.6
       }
-      geometry Box { size 0.2 4.4 2.6 }
+      geometry Box {
+        size 0.2 4.4 2.6
+      }
     }
   ]
   name "tanque_pared_der"
+  boundingObject Box {
+    size 0.2 4.4 2.6
+  }
   locked TRUE
-  boundingObject Box { size 0.2 4.4 2.6 }
 }
-
