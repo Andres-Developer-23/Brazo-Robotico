@@ -7,8 +7,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.058560569668644216 -0.07276257792220849 0.9956285788054692 4.92356094900595
-  position 1.1860306214203136 27.655237178032813 9.646078619853283
+  orientation 0.0137 -0.0199 0.9997 1.208
+  position -4.78 -36.7 5.48
 }
 TexturedBackground {
 }
@@ -19,14 +19,18 @@ RectangleArena {
   floorSize 7 8
 }
 DEF ROBOT1 Robot {
-  translation 0.7 1.3 1.96
+  translation 0 0 0
   children [
     DEF BASE Solid {
-      rotation 1 0 0 1.5708
       children [
-        CadShape {
-          url [
-            "/home/andres/programacion/brazo_robotico/worlds/base.obj"
+        Transform {
+          rotation 1 0 0 1.57079632679
+          children [
+            CadShape {
+              url [
+                "/home/andres/programacion/brazo_robotico/brazo-robotico/base.obj"
+              ]
+            }
           ]
         }
       ]
@@ -34,48 +38,170 @@ DEF ROBOT1 Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 0.03839999999999994
-        axis 0 1 0
-        anchor 0 0 1
+        axis 0 0 1
+        anchor 0.024 -0.303 1.342
       }
       device [
         RotationalMotor {
-          name "motor_brazo_1"
-          minPosition -1.5708
-          maxPosition 1.5708
+          name "motor_base"
+          minPosition -3.14159
+          maxPosition 3.14159
         }
         PositionSensor {
-          name "sensor_brazo_1"
+          name "sensor_base"
         }
       ]
-      endPoint Solid {
-        translation -0.03839056351176023 0 0.0007371894074863494
-        rotation 0.9996314745551739 0.019195212577732414 -0.019195283085814783 1.5711685933584174
+      endPoint DEF BRAZO1 Solid {
+        translation 0 0 0.708
         children [
-          CadShape {
-            url [
-              "/home/andres/programacion/brazo_robotico/worlds/brazo-1.obj"
+          Transform {
+            rotation 1 0 0 1.57079632679
+            children [
+              CadShape {
+                url [
+                  "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                ]
+              }
             ]
           }
           HingeJoint {
             jointParameters HingeJointParameters {
-              position -1.4880000000000053
-              axis 0 0 1
-              anchor 5.38 7.09 0.32
+              axis 1 0 0
+              anchor 0.025 -0.284 5.498
             }
             device [
               RotationalMotor {
-                name "motor_brazo2_1"
-                minPosition -1.6
-                maxPosition 1.6
+                name "motor_brazo_1"
+                minPosition -1.5708
+                maxPosition 1.5708
               }
               PositionSensor {
-                name "sensor_brazo2_1"
+                name "sensor_brazo_1"
               }
             ]
+            endPoint DEF BRAZO2 Solid {
+              translation 0 0 4.864
+              children [
+                Transform {
+                  rotation 1 0 0 1.57079632679
+                  children [
+                    CadShape {
+                      url [
+                        "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                      ]
+                    }
+                  ]
+                }
+                HingeJoint {
+                  jointParameters HingeJointParameters {
+                    axis 1 0 0
+                    anchor 0.025 -0.284 5.498
+                  }
+                  device [
+                    RotationalMotor {
+                      name "motor_brazo_2"
+                      minPosition -1.5708
+                      maxPosition 1.5708
+                    }
+                    PositionSensor {
+                      name "sensor_brazo_2"
+                    }
+                  ]
+                  endPoint DEF BRAZO3 Solid {
+                    translation 0 0 4.864
+                    children [
+                      Transform {
+                        rotation 1 0 0 1.57079632679
+                        children [
+                          CadShape {
+                            url [
+                              "/home/andres/programacion/brazo_robotico/brazo-robotico/brazo-1.obj"
+                            ]
+                          }
+                        ]
+                      }
+                      HingeJoint {
+                        jointParameters HingeJointParameters {
+                          axis 1 0 0
+                          anchor 0.025 -0.284 5.498
+                        }
+                        device [
+                          RotationalMotor {
+                            name "motor_brazo_3"
+                            minPosition -1.5708
+                            maxPosition 1.5708
+                          }
+                          PositionSensor {
+                            name "sensor_brazo_3"
+                          }
+                        ]
+                        endPoint DEF GARRA Solid {
+                          translation 0 0 4.864
+                          children [
+                            Transform {
+                              rotation 1 0 0 1.57079632679
+                              children [
+                                CadShape {
+                                  url [
+                                    "/home/andres/programacion/brazo_robotico/brazo-robotico/garra.obj"
+                                  ]
+                                }
+                              ]
+                            }
+                            HingeJoint {
+                              jointParameters HingeJointParameters {
+                                axis 0 1 0
+                                anchor -0.442 -0.264 3.249
+                              }
+                              device [
+                                RotationalMotor {
+                                  name "motor_garra_izq"
+                                  minPosition -0.8
+                                  maxPosition 0
+                                }
+                                PositionSensor {
+                                  name "sensor_garra_izq"
+                                }
+                              ]
+                              endPoint Solid {
+                                translation -0.442 -0.264 3.249
+                                name "dedo_izq"
+                              }
+                            }
+                            HingeJoint {
+                              jointParameters HingeJointParameters {
+                                axis 0 -1 0
+                                anchor 0.467 -0.264 3.249
+                              }
+                              device [
+                                RotationalMotor {
+                                  name "motor_garra_der"
+                                  minPosition -0.8
+                                  maxPosition 0
+                                }
+                                PositionSensor {
+                                  name "sensor_garra_der"
+                                }
+                              ]
+                              endPoint Solid {
+                                translation 0.467 -0.264 3.249
+                                name "dedo_der"
+                              }
+                            }
+                          ]
+                          name "garra"
+                        }
+                      }
+                    ]
+                    name "brazo_3"
+                  }
+                }
+              ]
+              name "brazo_2"
+            }
           }
         ]
-        name "brazo"
+        name "brazo_1"
       }
     }
   ]
