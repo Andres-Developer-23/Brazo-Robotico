@@ -42,22 +42,20 @@ brazo_robotico/
 
 ## Estado del proyecto
 
-Proyecto en etapa inicial. Actualmente incluye:
+Proyecto en desarrollo activo. Actualmente incluye la cadena cinemática completa:
 
 - [x] Base del brazo modelada en 3D
 - [x] Escenario Webots con fondo texturizado y piso
-- [x] Segmento superior del brazo modelado en 3D (3 instancias en escena)
-- [ ] Articulaciones y motores
-- [ ] Controlador (Python)
-- [ ] Pinza o efector final
+- [x] Segmentos de brazo (hombro, antebrazo, muñeca) ensamblados
+- [x] Articulaciones y motores implementados con orientación en Z
+- [x] Controlador (Python) para todos los motores (eje Y para los brazos)
+- [x] Pinza o efector final (garra) funcional y sincronizada
 
 ## Próximos pasos
 
-- Unir los segmentos con articulaciones rotacionales (`HingeJoint`)
-- Modelar segmentos adicionales (antebrazo, muñeca)
-- Escribir un controlador en Python para el movimiento
-- Agregar un gripper o efector final
-
+- Refinar la textura o detalles visuales de los modelos 3D
+- Implementar cinemática inversa (IK)
+- Añadir control autónomo o trayectorias programadas
 ## Contribuciones
 
 Las contribuciones son bienvenidas. Para colaborar:
