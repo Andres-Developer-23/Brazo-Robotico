@@ -52,13 +52,22 @@ motor_gd.setVelocity(0.0)
 
 # ── Nodos para Agarre Supervisor ──────────────────────────────────────────────
 punto_agarre = robot.getFromDef("PUNTO_AGARRE")
-caja_roja = robot.getFromDef("CAJA_ROJA")
-caja_trans = None
-ultima_pos = None
-if caja_roja:
-    caja_trans = caja_roja.getField("translation")
+
+# Lista de todos los objetos agarrables del mundo
+OBJETOS_DEF = ["CAJA_ROJA", "CILINDRO_AZUL", "ESFERA_VERDE", "CUBO_AMARILLO", "CUBO_NARANJA"]
+objetos = []
+for def_name in OBJETOS_DEF:
+    nodo = robot.getFromDef(def_name)
+    if nodo:
+        objetos.append({
+            "nodo": nodo,
+            "trans": nodo.getField("translation"),
+            "nombre": def_name
+        })
 
 grabbed = False
+objeto_agarrado = None
+ultima_pos = None
 
 # ── Teclado ───────────────────────────────────────────────────────────────────
 keyboard = Keyboard()
@@ -108,32 +117,41 @@ while robot.step(timestep) != -1:
         motor_gi.setVelocity(VEL_GARRA)
         motor_gd.setVelocity(VEL_GARRA)
         
-        # Intentar atrapar si no está atrapada
-        if not grabbed and caja_roja and punto_agarre:
+        # Buscar el objeto más cercano a la garra
+        if not grabbed and punto_agarre:
             pos_garra = punto_agarre.getPosition()
-            pos_caja = caja_roja.getPosition()
-            dist = math.sqrt((pos_garra[0]-pos_caja[0])**2 + (pos_garra[1]-pos_caja[1])**2 + (pos_garra[2]-pos_caja[2])**2)
+            mejor_dist = float('inf')
+            mejor_obj = None
             
-            if dist < 1.2:  # Solo agarra si la garra está tocando la caja
+            for obj in objetos:
+                pos_obj = obj["nodo"].getPosition()
+                dist = math.sqrt((pos_garra[0]-pos_obj[0])**2 + (pos_garra[1]-pos_obj[1])**2 + (pos_garra[2]-pos_obj[2])**2)
+                if dist < mejor_dist:
+                    mejor_dist = dist
+                    mejor_obj = obj
+            
+            if mejor_dist < 1.2:
                 grabbed = True
-                print("¡CAJA ATRAPADA! (distancia: {:.2f}m)".format(dist))
+                objeto_agarrado = mejor_obj
+                print("¡{} ATRAPADO! (distancia: {:.2f}m)".format(objeto_agarrado["nombre"], mejor_dist))
             else:
-                print("Acerca más la garra a la caja (distancia actual: {:.2f}m)".format(dist))
+                print("Acerca más la garra (objeto más cercano a {:.2f}m)".format(mejor_dist))
 
     elif key == ord('S'):
         motor_gi.setVelocity(-VEL_GARRA)
         motor_gd.setVelocity(-VEL_GARRA)
-        if grabbed:
+        if grabbed and objeto_agarrado:
             grabbed = False
-            # Fijar la caja exactamente en la última posición y detener su física
-            if caja_trans and ultima_pos:
-                caja_trans.setSFVec3f(ultima_pos)
-                caja_roja.resetPhysics()
-            print("CAJA SOLTADA.")
+            # Fijar el objeto exactamente en la última posición
+            if ultima_pos:
+                objeto_agarrado["trans"].setSFVec3f(ultima_pos)
+                objeto_agarrado["nodo"].resetPhysics()
+            objeto_agarrado = None
+            print("OBJETO SOLTADO.")
 
     # ── Sincronizar posición si está agarrada ─────────────────────────────────
-    if grabbed and caja_trans and punto_agarre:
+    if grabbed and objeto_agarrado and punto_agarre:
         pos = punto_agarre.getPosition()
-        ultima_pos = list(pos)  # Guardar última posición conocida
-        caja_trans.setSFVec3f(pos)
-        caja_roja.resetPhysics()
+        ultima_pos = list(pos)
+        objeto_agarrado["trans"].setSFVec3f(pos)
+        objeto_agarrado["nodo"].resetPhysics()

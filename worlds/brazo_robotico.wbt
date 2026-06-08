@@ -269,3 +269,133 @@ DEF CAJA_ROJA Robot {
     mass 0.001
   }
 }
+
+DEF CILINDRO_AZUL Robot {
+  controller "<none>"
+  translation 3 4 1
+  children [
+    Connector {
+      name "conector_cilindro"
+      type "symmetric"
+      distanceTolerance 50.0
+      axisTolerance 3.14159
+      boundingObject Sphere { radius 0.001 }
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.3 0.9
+        roughness 0.4
+        metalness 0.1
+      }
+      geometry Cylinder {
+        height 0.8
+        radius 0.35
+      }
+    }
+  ]
+  name "cilindro_azul"
+  boundingObject Cylinder {
+    height 0.8
+    radius 0.35
+  }
+  physics Physics {
+    density -1
+    mass 0.001
+  }
+}
+
+DEF ESFERA_VERDE Robot {
+  controller "<none>"
+  translation -3 4 1
+  children [
+    Connector {
+      name "conector_esfera"
+      type "symmetric"
+      distanceTolerance 50.0
+      axisTolerance 3.14159
+      boundingObject Sphere { radius 0.001 }
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.8 0.2
+        roughness 0.6
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.4
+      }
+    }
+  ]
+  name "esfera_verde"
+  boundingObject Sphere {
+    radius 0.4
+  }
+  physics Physics {
+    density -1
+    mass 0.001
+  }
+}
+
+DEF CUBO_AMARILLO Robot {
+  controller "<none>"
+  translation 0 7 1
+  children [
+    Connector {
+      name "conector_cubo_am"
+      type "symmetric"
+      distanceTolerance 50.0
+      axisTolerance 3.14159
+      boundingObject Sphere { radius 0.001 }
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.95 0.85 0.1
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box {
+        size 0.7 0.7 0.7
+      }
+    }
+  ]
+  name "cubo_amarillo"
+  boundingObject Box {
+    size 0.7 0.7 0.7
+  }
+  physics Physics {
+    density -1
+    mass 0.001
+  }
+}
+
+DEF CUBO_NARANJA Robot {
+  controller "<none>"
+  translation -4 7 1
+  children [
+    Connector {
+      name "conector_cubo_na"
+      type "symmetric"
+      distanceTolerance 50.0
+      axisTolerance 3.14159
+      boundingObject Sphere { radius 0.001 }
+    }
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.95 0.5 0.05
+        roughness 0.3
+        metalness 0.2
+      }
+      geometry Box {
+        size 0.5 0.8 0.5
+      }
+    }
+  ]
+  name "cubo_naranja"
+  boundingObject Box {
+    size 0.5 0.8 0.5
+  }
+  physics Physics {
+    density -1
+    mass 0.001
+  }
+}
