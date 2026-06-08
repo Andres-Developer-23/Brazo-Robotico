@@ -157,7 +157,7 @@ DEF ROBOT1 Robot {
                               name "conector_garra"
                               type "symmetric"
                               distanceTolerance 1.5
-                              axisTolerance 3.15
+                              axisTolerance 3.14159
                             }
                             HingeJoint {
                               jointParameters HingeJointParameters {
@@ -243,7 +243,7 @@ Solid {
       name "conector_caja"
       type "symmetric"
       distanceTolerance 1.5
-      axisTolerance 3.15
+      axisTolerance 3.14159
     }
     Shape {
       appearance PBRAppearance {
