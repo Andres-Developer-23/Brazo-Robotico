@@ -236,7 +236,8 @@ DEF ROBOT1 Robot {
   controller "robot_brazo"
 }
 
-Solid {
+Robot {
+  controller "<none>"
   translation 0 5 1
   children [
     Connector {
