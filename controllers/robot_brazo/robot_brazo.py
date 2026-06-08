@@ -142,10 +142,10 @@ while robot.step(timestep) != -1:
         motor_gd.setVelocity(-VEL_GARRA)
         if grabbed and objeto_agarrado:
             grabbed = False
-            # Fijar el objeto exactamente en la última posición
+            # Fijar el objeto exactamente en la última posición con velocidad cero
             if ultima_pos:
                 objeto_agarrado["trans"].setSFVec3f(ultima_pos)
-                objeto_agarrado["nodo"].resetPhysics()
+                objeto_agarrado["nodo"].setVelocity([0, 0, 0, 0, 0, 0])
             objeto_agarrado = None
             print("OBJETO SOLTADO.")
 
@@ -154,4 +154,5 @@ while robot.step(timestep) != -1:
         pos = punto_agarre.getPosition()
         ultima_pos = list(pos)
         objeto_agarrado["trans"].setSFVec3f(pos)
-        objeto_agarrado["nodo"].resetPhysics()
+        # Congelar velocidad para que no acumule impulso
+        objeto_agarrado["nodo"].setVelocity([0, 0, 0, 0, 0, 0])
