@@ -1,6 +1,6 @@
 # Brazo Robótico
 
-Simulación de un brazo robótico en [Webots R2025a](https://cyberbotics.com/). Los modelos 3D fueron creados en Blender 4.0.2 y el proyecto se encuentra en etapa inicial.
+Simulación de un brazo robótico de 3 segmentos con pinza en [Webots R2025a](https://cyberbotics.com/). Los modelos 3D fueron creados en Blender 4.0.2.
 
 ![Captura de la simulación](worlds/.brazo_robotico.jpg)
 
@@ -9,20 +9,24 @@ Simulación de un brazo robótico en [Webots R2025a](https://cyberbotics.com/). 
 - **Webots R2025a** — simulador de robots open-source
 - **Blender 4.0.2** — modelado 3D
 - **Formato 3D:** OBJ + MTL
+- **Controlador:** Python (Supervisor API)
 
 ## Estructura del proyecto
 
 ```
 brazo_robotico/
-├── brazo-robotico/          # Modelos 3D del brazo
-│   ├── base.obj             # Malla 3D de la base
-│   ├── base.mtl             # Materiales de la base
-│   ├── brazo-1.obj          # Malla 3D del segmento superior
-│   └── brazo-1.mtl          # Materiales del segmento superior
-├── worlds/                  # Escenarios de Webots
-│   ├── brazo_robotico.wbt   # Mundo principal de la simulación
-│   ├── .brazo_robotico.wbproj
-│   └── .brazo_robotico.jpg  # Preview de la simulación
+├── brazo-robotico/              # Modelos 3D del brazo
+│   ├── base.obj / base.mtl      # Base del brazo
+│   ├── brazo-1.obj / brazo-1.mtl  # Segmento de brazo
+│   └── garra.obj / garra.mtl    # Efector final (garra)
+├── controllers/
+│   └── robot_brazo/
+│       └── robot_brazo.py       # Controlador principal (Supervisor)
+├── worlds/
+│   ├── brazo_robotico.wbt       # Mundo principal de la simulación
+│   └── .brazo_robotico.jpg      # Preview
+├── Dockerfile                   # Para webots.cloud
+├── webots.yml                   # Configuración de publicación
 └── README.md
 ```
 
@@ -34,54 +38,51 @@ brazo_robotico/
 
 1. Abre Webots.
 2. Ve a `File > Open World...` y selecciona `worlds/brazo_robotico.wbt`.
-3. **Corrige las rutas de los modelos 3D** (solo la primera vez):
-   - En el árbol de escena, expande cada `Solid` → `children` → `CadShape`.
-   - En el campo `url`, cambia las rutas UUID (ej. `../../../1508fe4c/`) por `../../brazo-robotico/` (ej. `../../brazo-robotico/base.obj`).
-   - También puedes hacer clic derecho en cada `CadShape`, seleccionar "Pick CAD file..." y elegir el archivo correspondiente en `brazo-robotico/`.
-4. La simulación mostrará la base y tres instancias del segmento superior del brazo.
+3. La simulación se iniciará automáticamente con el controlador.
+
+## Controles
+
+| Tecla | Acción |
+|---|---|
+| ← / → | Rotar base |
+| ↑ / ↓ | Mover hombro (brazo 1) |
+| A / D | Mover codo (brazo 2) |
+| Q / E | Mover muñeca (brazo 3) |
+| W | Cerrar garra y agarrar objeto cercano |
+| S | Abrir garra y soltar objeto |
+
+Al presionar **W**, el controlador busca el objeto más cercano al efector. Si está a menos de 1.2 m, lo agarra y lo sincroniza con la garra.
+
+## Objetos en la escena
+
+| Objeto | Color | Posición |
+|---|---|---|
+| Caja roja | Rojo | (0, 5, 1) |
+| Cilindro azul | Azul | (3, 4, 1) |
+| Esfera verde | Verde | (-3, 4, 1) |
+| Cubo amarillo | Amarillo | (0, 7, 1) |
+| Cubo naranja | Naranja | (-4, 7, 1) |
+| Tanque contenedor | Acero | (8, 0, 0) |
+
+## webots.cloud
+
+El proyecto incluye configuración para publicación en [webots.cloud](https://webots.cloud):
+
+- **`Dockerfile`** — imagen `cyberbotics/webots.cloud:R2025a-ubuntu22.04`
+- **`webots.yml`** — tipo `demo` con IDE Theia habilitado para control interactivo por teclado
+
+Para publicar, registra el repositorio en https://webots.cloud/simulation.
 
 ## Estado del proyecto
 
-Proyecto en desarrollo activo. Actualmente incluye la cadena cinemática completa:
-
 - [x] Base del brazo modelada en 3D
-- [x] Escenario Webots con fondo texturizado y piso
-- [x] Segmentos de brazo (hombro, antebrazo, muñeca) ensamblados
-- [x] Articulaciones y motores implementados con orientación en Z
-- [x] Controlador (Python) para todos los motores (eje Y para los brazos)
-- [x] Pinza o efector final (garra) funcional y sincronizada
-
-## Próximos pasos
-
-- Refinar la textura o detalles visuales de los modelos 3D
-- Implementar cinemática inversa (IK)
-- Añadir control autónomo o trayectorias programadas
-## Contribuciones
-
-Las contribuciones son bienvenidas. Para colaborar:
-
-1. **Reporta issues** — abre un issue describiendo el bug o la mejora.
-2. **Fork** el repositorio y crea una rama descriptiva:
-   - `feature/nombre` para nuevas funcionalidades
-   - `fix/nombre` para correcciones
-   - `docs/nombre` para documentación
-3. **Desarrolla** manteniendo la estructura de directorios existente. Si agregas modelos 3D, documenta el archivo fuente de Blender.
-4. **Commit** con mensajes descriptivos en español. Ejemplos:
-   - `Agrega controlador Python para el brazo`
-   - `Corrige ruta del modelo base.obj en el mundo Webots`
-   - `Actualiza modelo 3D del húmero con nuevas geometrías`
-5. **Abre un Pull Request** a la rama `main` describiendo los cambios.
-
-### Entorno de desarrollo
-
-- Webots R2025a
-- Blender 4.0.2 (para modelos 3D)
-- Python 3.x (para controladores)
-
-### Código de conducta
-
-Este proyecto sigue el [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/). Al participar, se espera que mantengas un entorno respetuoso e inclusivo.
-
-## Licencia
-
-Este proyecto no cuenta con licencia definida actualmente.
+- [x] Cadena cinemática de 3 segmentos (hombro, codo, muñeca)
+- [x] Garra funcional con 2 dedos sincronizados
+- [x] Control por teclado (Supervisor)
+- [x] Agarre físico de objetos (caja, cilindro, esfera, cubos)
+- [x] Tanque contenedor con paredes sólidas
+- [x] Rutas relativas de modelos 3D
+- [x] Dockerfile + webots.yml para webots.cloud
+- [ ] Cinemática inversa (IK)
+- [ ] Control autónomo o trayectorias programadas
+- [ ] Robot window interactiva
