@@ -158,6 +158,7 @@ DEF ROBOT1 Robot {
                               type "symmetric"
                               distanceTolerance 50.0
                               axisTolerance 3.14159
+                              boundingObject Sphere { radius 0.05 }
                             }
                             HingeJoint {
                               jointParameters HingeJointParameters {
@@ -245,6 +246,7 @@ Robot {
       type "symmetric"
       distanceTolerance 50.0
       axisTolerance 3.14159
+      boundingObject Sphere { radius 0.05 }
     }
     Shape {
       appearance PBRAppearance {
