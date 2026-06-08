@@ -414,10 +414,7 @@ Solid {
     }
   ]
   name "tanque_piso"
-  physics Physics {
-    density -1
-    mass 500
-  }
+  locked TRUE
   boundingObject Box { size 4 4 0.3 }
 }
 
@@ -435,10 +432,7 @@ Solid {
     }
   ]
   name "tanque_pared_front"
-  physics Physics {
-    density -1
-    mass 500
-  }
+  locked TRUE
   boundingObject Box { size 4 0.2 2.6 }
 }
 
@@ -456,10 +450,7 @@ Solid {
     }
   ]
   name "tanque_pared_back"
-  physics Physics {
-    density -1
-    mass 500
-  }
+  locked TRUE
   boundingObject Box { size 4 0.2 2.6 }
 }
 
@@ -477,10 +468,7 @@ Solid {
     }
   ]
   name "tanque_pared_izq"
-  physics Physics {
-    density -1
-    mass 500
-  }
+  locked TRUE
   boundingObject Box { size 0.2 4.4 2.6 }
 }
 
@@ -498,10 +486,7 @@ Solid {
     }
   ]
   name "tanque_pared_der"
-  physics Physics {
-    density -1
-    mass 500
-  }
+  locked TRUE
   boundingObject Box { size 0.2 4.4 2.6 }
 }
 
