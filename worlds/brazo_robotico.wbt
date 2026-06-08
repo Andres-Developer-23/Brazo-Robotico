@@ -19,6 +19,7 @@ RectangleArena {
   floorSize 26 26
 }
 DEF ROBOT1 Robot {
+  supervisor TRUE
   children [
     DEF BASE Solid {
       children [
@@ -152,7 +153,7 @@ DEF ROBOT1 Robot {
                                 }
                               ]
                             }
-                            Connector {
+                            DEF PUNTO_AGARRE Connector {
                               translation 0 -0.264 3.0
                               name "conector_garra"
                               type "symmetric"
@@ -237,7 +238,7 @@ DEF ROBOT1 Robot {
   controller "robot_brazo"
 }
 
-Robot {
+DEF CAJA_ROJA Robot {
   controller "<none>"
   translation 0 5 1
   children [

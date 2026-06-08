@@ -1,54 +1,44 @@
 """
-Controlador para el brazo robótico de 3 segmentos + garra.
-
-Motores y controles:
-  motor_base    → ← / →      Rotación horizontal de la base
-  motor_brazo_1 ↑ / ↓        Elevación del hombro
-  motor_brazo_2 A / D         Flexión del codo (antebrazo)
-  motor_brazo_3 Q / E         Rotación de la muñeca
-  motor_garra   W / S         Abrir / cerrar garra (ambos dedos)
+Controlador para el brazo robótico de 3 segmentos + garra usando Supervisor.
 """
 
-from controller import Robot, Keyboard, Connector
+from controller import Supervisor, Keyboard
+import math
 
 # ── Configuración ──────────────────────────────────────────────────────────────
-VEL_BASE   = 0.4   # rad/s — velocidad de rotación de la base
-VEL_BRAZO  = 0.3   # rad/s — velocidad de los segmentos del brazo
-VEL_GARRA  = 0.5   # rad/s — velocidad de apertura/cierre de la garra
+VEL_BASE   = 0.4
+VEL_BRAZO  = 0.3
+VEL_GARRA  = 0.5
 
 # ── Inicialización del robot ───────────────────────────────────────────────────
-robot    = Robot()
+robot    = Supervisor()
 timestep = int(robot.getBasicTimeStep())
 
-# ── Motor y sensor: BASE ──────────────────────────────────────────────────────
+# ── Motores ──────────────────────────────────────────────────────
 motor_base   = robot.getDevice("motor_base")
 sensor_base  = robot.getDevice("sensor_base")
 sensor_base.enable(timestep)
 motor_base.setPosition(float('inf'))
 motor_base.setVelocity(0.0)
 
-# ── Motor y sensor: HOMBRO (brazo 1) ──────────────────────────────────────────
 motor_b1   = robot.getDevice("motor_brazo_1")
 sensor_b1  = robot.getDevice("sensor_brazo_1")
 sensor_b1.enable(timestep)
 motor_b1.setPosition(float('inf'))
 motor_b1.setVelocity(0.0)
 
-# ── Motor y sensor: CODO (brazo 2) ────────────────────────────────────────────
 motor_b2   = robot.getDevice("motor_brazo_2")
 sensor_b2  = robot.getDevice("sensor_brazo_2")
 sensor_b2.enable(timestep)
 motor_b2.setPosition(float('inf'))
 motor_b2.setVelocity(0.0)
 
-# ── Motor y sensor: MUÑECA (brazo 3) ──────────────────────────────────────────
 motor_b3   = robot.getDevice("motor_brazo_3")
 sensor_b3  = robot.getDevice("sensor_brazo_3")
 sensor_b3.enable(timestep)
 motor_b3.setPosition(float('inf'))
 motor_b3.setVelocity(0.0)
 
-# ── Motores y sensores: GARRA (dedo izq + dedo der sincronizados) ─────────────
 motor_gi   = robot.getDevice("motor_garra_izq")
 motor_gd   = robot.getDevice("motor_garra_der")
 sensor_gi  = robot.getDevice("sensor_garra_izq")
@@ -60,10 +50,14 @@ motor_gd.setPosition(float('inf'))
 motor_gi.setVelocity(0.0)
 motor_gd.setVelocity(0.0)
 
+# ── Nodos para Agarre Supervisor ──────────────────────────────────────────────
+punto_agarre = robot.getFromDef("PUNTO_AGARRE")
+caja_roja = robot.getFromDef("CAJA_ROJA")
+caja_trans = None
+if caja_roja:
+    caja_trans = caja_roja.getField("translation")
 
-# ── Conector Magnético (Garra) ────────────────────────────────────────────────
-conector_garra = robot.getDevice("conector_garra")
-conector_garra.enablePresence(timestep)
+grabbed = False
 
 # ── Teclado ───────────────────────────────────────────────────────────────────
 keyboard = Keyboard()
@@ -74,7 +68,7 @@ print("  ← / →   : Rotar base")
 print("  ↑ / ↓   : Hombro (brazo 1)")
 print("  A / D   : Codo   (brazo 2)")
 print("  Q / E   : Muñeca (brazo 3)")
-print("  W / S   : Garra  (abrir / cerrar)")
+print("  W / S   : Garra  (atrapar / soltar)")
 print("==================================")
 
 # ── Bucle principal ───────────────────────────────────────────────────────────
@@ -89,38 +83,51 @@ while robot.step(timestep) != -1:
     motor_gi.setVelocity(0.0)
     motor_gd.setVelocity(0.0)
 
-    # ── BASE ──────────────────────────────────────────────────────────────────
     if key == Keyboard.LEFT:
         motor_base.setVelocity(VEL_BASE)
     elif key == Keyboard.RIGHT:
         motor_base.setVelocity(-VEL_BASE)
 
-    # ── HOMBRO ────────────────────────────────────────────────────────────────
     elif key == Keyboard.UP:
         motor_b1.setVelocity(VEL_BRAZO)
     elif key == Keyboard.DOWN:
         motor_b1.setVelocity(-VEL_BRAZO)
 
-    # ── CODO ──────────────────────────────────────────────────────────────────
     elif key == ord('A'):
         motor_b2.setVelocity(VEL_BRAZO)
     elif key == ord('D'):
         motor_b2.setVelocity(-VEL_BRAZO)
 
-    # ── MUÑECA ────────────────────────────────────────────────────────────────
     elif key == ord('Q'):
         motor_b3.setVelocity(VEL_BRAZO)
     elif key == ord('E'):
         motor_b3.setVelocity(-VEL_BRAZO)
 
-    # ── GARRA (ambos dedos sincronizados en espejo + Conector) ──────────────────
     elif key == ord('W'):
         motor_gi.setVelocity(VEL_GARRA)
         motor_gd.setVelocity(VEL_GARRA)
-        conector_garra.lock()
-        print("INTENTANDO AGARRAR... Estado del imán:", conector_garra.getPresence())
+        
+        # Intentar atrapar si no está atrapada
+        if not grabbed and caja_roja and punto_agarre:
+            pos_garra = punto_agarre.getPosition()
+            pos_caja = caja_roja.getPosition()
+            dist = math.sqrt((pos_garra[0]-pos_caja[0])**2 + (pos_garra[1]-pos_caja[1])**2 + (pos_garra[2]-pos_caja[2])**2)
+            
+            if dist < 5.0: # Tolerancia amplia para facilidad de uso
+                grabbed = True
+                print("¡CAJA ATRAPADA! (distancia: {:.2f}m)".format(dist))
+            else:
+                print("CAJA MUY LEJOS (distancia: {:.2f}m)".format(dist))
+
     elif key == ord('S'):
         motor_gi.setVelocity(-VEL_GARRA)
         motor_gd.setVelocity(-VEL_GARRA)
-        conector_garra.unlock()
-        print("SOLTANDO CAJA.")
+        if grabbed:
+            grabbed = False
+            print("CAJA SOLTADA.")
+
+    # ── Sincronizar posición si está agarrada ─────────────────────────────────
+    if grabbed and caja_trans and punto_agarre:
+        pos = punto_agarre.getPosition()
+        caja_trans.setSFVec3f(pos)
+        caja_roja.resetPhysics()
