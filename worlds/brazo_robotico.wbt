@@ -217,18 +217,61 @@ DEF ROBOT1 Robot {
                             }
                           ]
                           name "garra"
+                          boundingObject Pose {
+                            translation 0 -0.264 1.5
+                            children [
+                              Shape {
+                                geometry Box {
+                                  size 1.1 0.4 3.0
+                                }
+                              }
+                            ]
+                          }
                         }
                       }
                     ]
                     name "brazo_3"
+                    boundingObject Pose {
+                      translation 0 0 2.7
+                      children [
+                        Shape {
+                          geometry Cylinder {
+                            height 5.0
+                            radius 0.25
+                          }
+                        }
+                      ]
+                    }
                   }
                 }
               ]
               name "brazo_2"
+              boundingObject Pose {
+                translation 0 0 2.7
+                children [
+                  Shape {
+                    geometry Cylinder {
+                      height 5.0
+                      radius 0.25
+                    }
+                  }
+                ]
+              }
             }
           }
         ]
         name "brazo_1"
+        boundingObject Pose {
+          translation 0 0 2.7
+          children [
+            Shape {
+              geometry Cylinder {
+                height 5.0
+                radius 0.25
+              }
+            }
+          ]
+        }
       }
     }
   ]
