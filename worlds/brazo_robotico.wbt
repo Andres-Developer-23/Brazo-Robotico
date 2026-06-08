@@ -156,7 +156,7 @@ DEF ROBOT1 Robot {
                               translation 0 -0.264 3.0
                               name "conector_garra"
                               type "symmetric"
-                              distanceTolerance 0.5
+                              distanceTolerance 1.5
                               axisTolerance 3.14159
                               boundingObject Sphere { radius 0.05 }
                             }
@@ -244,7 +244,7 @@ Robot {
     Connector {
       name "conector_caja"
       type "symmetric"
-      distanceTolerance 0.5
+      distanceTolerance 1.5
       axisTolerance 3.14159
       boundingObject Sphere { radius 0.05 }
     }
