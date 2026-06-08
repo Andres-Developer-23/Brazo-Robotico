@@ -156,9 +156,9 @@ DEF ROBOT1 Robot {
                               translation 0 -0.264 3.0
                               name "conector_garra"
                               type "symmetric"
-                              distanceTolerance 1.5
+                              distanceTolerance 50.0
                               axisTolerance 3.14159
-                              boundingObject Sphere { radius 0.05 }
+                              boundingObject Sphere { radius 0.001 }
                             }
                             HingeJoint {
                               jointParameters HingeJointParameters {
@@ -244,9 +244,9 @@ Robot {
     Connector {
       name "conector_caja"
       type "symmetric"
-      distanceTolerance 1.5
+      distanceTolerance 50.0
       axisTolerance 3.14159
-      boundingObject Sphere { radius 0.05 }
+      boundingObject Sphere { radius 0.001 }
     }
     Shape {
       appearance PBRAppearance {
@@ -265,6 +265,6 @@ Robot {
   }
   physics Physics {
     density -1
-    mass 0.1
+    mass 0.001
   }
 }
