@@ -156,7 +156,7 @@ DEF ROBOT1 Robot {
                               translation 0 -0.264 3.0
                               name "conector_garra"
                               type "symmetric"
-                              distanceTolerance 1.5
+                              distanceTolerance 50.0
                               axisTolerance 3.14159
                             }
                             HingeJoint {
@@ -242,7 +242,7 @@ Solid {
     Connector {
       name "conector_caja"
       type "symmetric"
-      distanceTolerance 1.5
+      distanceTolerance 50.0
       axisTolerance 3.14159
     }
     Shape {
