@@ -54,6 +54,7 @@ motor_gd.setVelocity(0.0)
 punto_agarre = robot.getFromDef("PUNTO_AGARRE")
 caja_roja = robot.getFromDef("CAJA_ROJA")
 caja_trans = None
+ultima_pos = None
 if caja_roja:
     caja_trans = caja_roja.getField("translation")
 
@@ -124,10 +125,15 @@ while robot.step(timestep) != -1:
         motor_gd.setVelocity(-VEL_GARRA)
         if grabbed:
             grabbed = False
+            # Fijar la caja exactamente en la última posición y detener su física
+            if caja_trans and ultima_pos:
+                caja_trans.setSFVec3f(ultima_pos)
+                caja_roja.resetPhysics()
             print("CAJA SOLTADA.")
 
     # ── Sincronizar posición si está agarrada ─────────────────────────────────
     if grabbed and caja_trans and punto_agarre:
         pos = punto_agarre.getPosition()
+        ultima_pos = list(pos)  # Guardar última posición conocida
         caja_trans.setSFVec3f(pos)
         caja_roja.resetPhysics()
