@@ -118,7 +118,9 @@ while robot.step(timestep) != -1:
         motor_gi.setVelocity(VEL_GARRA)
         motor_gd.setVelocity(VEL_GARRA)
         conector_garra.lock()
+        print("INTENTANDO AGARRAR... Estado del imán:", conector_garra.getPresence())
     elif key == ord('S'):
         motor_gi.setVelocity(-VEL_GARRA)
         motor_gd.setVelocity(-VEL_GARRA)
         conector_garra.unlock()
+        print("SOLTANDO CAJA.")
