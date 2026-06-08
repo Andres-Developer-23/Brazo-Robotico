@@ -45,8 +45,6 @@ DEF ROBOT1 Robot {
       device [
         RotationalMotor {
           name "motor_base"
-          minPosition -3.14159
-          maxPosition 3.14159
         }
         PositionSensor {
           name "sensor_base"
