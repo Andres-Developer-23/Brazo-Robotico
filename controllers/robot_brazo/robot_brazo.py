@@ -142,7 +142,6 @@ while robot.step(timestep) != -1:
         motor_gd.setVelocity(-VEL_GARRA)
         if grabbed and objeto_agarrado:
             grabbed = False
-            # Fijar el objeto exactamente en la última posición con velocidad cero
             if ultima_pos:
                 objeto_agarrado["trans"].setSFVec3f(ultima_pos)
                 objeto_agarrado["nodo"].setVelocity([0, 0, 0, 0, 0, 0])
@@ -152,7 +151,7 @@ while robot.step(timestep) != -1:
     # ── Sincronizar posición si está agarrada ─────────────────────────────────
     if grabbed and objeto_agarrado and punto_agarre:
         pos = punto_agarre.getPosition()
+        pos[1] += 0.3  # offset para evitar colisión con el bounding box de la garra
         ultima_pos = list(pos)
         objeto_agarrado["trans"].setSFVec3f(pos)
-        # Congelar velocidad para que no acumule impulso
         objeto_agarrado["nodo"].setVelocity([0, 0, 0, 0, 0, 0])
