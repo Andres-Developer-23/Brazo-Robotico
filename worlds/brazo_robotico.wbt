@@ -245,7 +245,7 @@ Solid {
       }
     }
   ]
-  name caja_roja
+  name "caja_roja"
   boundingObject Box {
     size 0.6 0.6 0.6
   }
