@@ -9,7 +9,7 @@ Motores y controles:
   motor_garra   W / S         Abrir / cerrar garra (ambos dedos)
 """
 
-from controller import Robot, Keyboard
+from controller import Robot, Keyboard, Connector
 
 # ── Configuración ──────────────────────────────────────────────────────────────
 VEL_BASE   = 0.4   # rad/s — velocidad de rotación de la base
@@ -60,6 +60,11 @@ motor_gd.setPosition(float('inf'))
 motor_gi.setVelocity(0.0)
 motor_gd.setVelocity(0.0)
 
+
+# ── Conector Magnético (Garra) ────────────────────────────────────────────────
+conector_garra = robot.getDevice("conector_garra")
+conector_garra.enablePresence(timestep)
+
 # ── Teclado ───────────────────────────────────────────────────────────────────
 keyboard = Keyboard()
 keyboard.enable(timestep)
@@ -108,10 +113,12 @@ while robot.step(timestep) != -1:
     elif key == ord('E'):
         motor_b3.setVelocity(-VEL_BRAZO)
 
-    # ── GARRA (ambos dedos sincronizados en espejo) ────────────────────────────
+    # ── GARRA (ambos dedos sincronizados en espejo + Conector) ──────────────────
     elif key == ord('W'):
         motor_gi.setVelocity(VEL_GARRA)
         motor_gd.setVelocity(VEL_GARRA)
+        conector_garra.lock()
     elif key == ord('S'):
         motor_gi.setVelocity(-VEL_GARRA)
         motor_gd.setVelocity(-VEL_GARRA)
+        conector_garra.unlock()

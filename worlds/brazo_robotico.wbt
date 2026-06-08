@@ -152,6 +152,13 @@ DEF ROBOT1 Robot {
                                 }
                               ]
                             }
+                            Connector {
+                              translation 0 -0.264 3.0
+                              name "conector_garra"
+                              type "symmetric"
+                              distanceTolerance 1.5
+                              axisTolerance 3.15
+                            }
                             HingeJoint {
                               jointParameters HingeJointParameters {
                                 axis 0 1 0
@@ -232,6 +239,12 @@ DEF ROBOT1 Robot {
 Solid {
   translation 0 5 1
   children [
+    Connector {
+      name "conector_caja"
+      type "symmetric"
+      distanceTolerance 1.5
+      axisTolerance 3.15
+    }
     Shape {
       appearance PBRAppearance {
         baseColor 0.8 0.2 0.2
