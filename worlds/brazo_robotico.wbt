@@ -397,3 +397,91 @@ DEF CUBO_NARANJA Robot {
     mass 0.001
   }
 }
+
+# ══ TANQUE / CONTENEDOR ══════════════════════════════════════════════════════
+
+# Piso del tanque
+Solid {
+  translation 8 0 0.15
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.25 0.28 0.32
+        roughness 0.8
+        metalness 0.6
+      }
+      geometry Box { size 4 4 0.3 }
+    }
+  ]
+  name "tanque_piso"
+  boundingObject Box { size 4 4 0.3 }
+}
+
+# Pared frontal (Y positiva)
+Solid {
+  translation 8 2.1 1.3
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.25 0.28 0.32
+        roughness 0.8
+        metalness 0.6
+      }
+      geometry Box { size 4 0.2 2.6 }
+    }
+  ]
+  name "tanque_pared_front"
+  boundingObject Box { size 4 0.2 2.6 }
+}
+
+# Pared trasera (Y negativa)
+Solid {
+  translation 8 -2.1 1.3
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.25 0.28 0.32
+        roughness 0.8
+        metalness 0.6
+      }
+      geometry Box { size 4 0.2 2.6 }
+    }
+  ]
+  name "tanque_pared_back"
+  boundingObject Box { size 4 0.2 2.6 }
+}
+
+# Pared izquierda (X negativa)
+Solid {
+  translation 6.1 0 1.3
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.25 0.28 0.32
+        roughness 0.8
+        metalness 0.6
+      }
+      geometry Box { size 0.2 4.4 2.6 }
+    }
+  ]
+  name "tanque_pared_izq"
+  boundingObject Box { size 0.2 4.4 2.6 }
+}
+
+# Pared derecha (X positiva)
+Solid {
+  translation 9.9 0 1.3
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.25 0.28 0.32
+        roughness 0.8
+        metalness 0.6
+      }
+      geometry Box { size 0.2 4.4 2.6 }
+    }
+  ]
+  name "tanque_pared_der"
+  boundingObject Box { size 0.2 4.4 2.6 }
+}
+
